@@ -1,0 +1,22 @@
+{
+    "name": "advocodo/RobbieD_BundledItemsImages",
+    "description": "Enable Bundled items images on Product view images for Bundle Products in Magento.",
+    "type": "magento-module",
+    "homepage": "https://www.magentocommerce.com/magento-connect/display-bundle-product-s-bundled-items-images-2.html",
+    "keywords": ["Bundle product", "images"],
+    "authors": [
+        {
+            "name": "Robin Dhiman",
+            "email": "rkd711@gmail.com",
+            "role": "owner"
+        },
+        {
+            "name": "Mehdi Chaouch",
+            "email": "mehdo@advocodo.com",
+            "role": "contributor"
+        }
+    ],
+    "require": {
+      "magento-hackathon/magento-composer-installer": "*"
+    }
+}
