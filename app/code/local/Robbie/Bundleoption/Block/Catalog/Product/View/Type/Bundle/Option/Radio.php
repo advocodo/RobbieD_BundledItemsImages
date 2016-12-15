@@ -1,55 +1,73 @@
-<?php 
+<?php
+
 /**
-* 
-*/
+ *
+ */
 class Robbie_Bundleoption_Block_Catalog_Product_View_Type_Bundle_Option_Radio extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Radio
 {
-	
-	public function _construct(){
 
-		$this->setTemplate('bundleoption/radio.phtml');
-	}
-	
-	public function jsonData($selection_id = null,$json = true)
-	{
-		$type = 'radio';
-		$selectionCollectionArr = Mage::getModel('bundleoption/product')
-									->jsonData($type);
+    public function _construct()
+    {
 
-		if($json == true){
+        $this->setTemplate('bundleoption/radio.phtml');
+    }
 
-			if($selection_id == null){
-				$jsonData = Mage::helper('core')
-							->jsonEncode($selectionCollectionArr);
-			}else{
-				$jsonData = Mage::helper('core')
-							->jsonEncode($selectionCollectionArr[$selection_id]);
-			}	
-		}else{
-			if($selection_id == null){
-				$jsonData = $selectionCollectionArr;
-			}else{
-				$jsonData = $selectionCollectionArr[$selection_id];
-			}			
-		}		
+    public function jsonData($selection_id = null, $json = true)
+    {
+        $type = 'radio';
+        $selectionCollectionArr = Mage::getModel('bundleoption/product')
+            ->jsonData($type);
 
-		return $jsonData;
-	}
+        if ($json == true) {
 
-	public function getPlaceholder() {	
-		$imageHelper = Mage::helper('catalog/image');
-		$image = $imageHelper->init(Mage::getModel('catalog/product'), 'small_image')
-					->resize(150,150)
-					->__toString();
+            if ($selection_id == null) {
+                $jsonData = Mage::helper('core')
+                    ->jsonEncode($selectionCollectionArr);
+            } else {
+                $jsonData = Mage::helper('core')
+                    ->jsonEncode($selectionCollectionArr[$selection_id]);
+            }
+        } else {
+            if ($selection_id == null) {
+                $jsonData = $selectionCollectionArr;
+            } else {
+                $jsonData = $selectionCollectionArr[$selection_id];
+            }
+        }
 
-		return $image;
-	}
+        return $jsonData;
+    }
 
-	public function getBackgroundColor() {
+    public function getPlaceholder()
+    {
+        $imageHelper = Mage::helper('catalog/image');
+        $image = $imageHelper->init(Mage::getModel('catalog/product'), 'small_image')
+            ->resize(150, 150)
+            ->__toString();
 
-		return Mage::getStoreConfig('bundleoption_section_one/group_1/field_background_color');
-	}	
+        return $image;
+    }
 
+    public function getBackgroundColor()
+    {
+
+        return Mage::getStoreConfig('bundleoption_section_one/group_1/field_background_color');
+    }
+
+    public function getSelectionTitle($_selection)
+    {
+        $this->setFormatProduct($_selection);
+        $title = $this->escapeHtml($_selection->getName());
+
+        return $title;
+    }
+
+
+    public function getSelectionImage($_selection, $baseImageSizeX = null, $baseImageSizeY = null)
+    {
+        $product = Mage::getModel('catalog/product')->load($_selection->getId());
+        $img = $this->helper('catalog/image')->init($product, 'image')->resize($baseImageSizeX, $baseImageSizeY);
+
+        return $img;
+    }
 }
-
-?>
